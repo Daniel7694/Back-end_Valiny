@@ -41,8 +41,24 @@ Estudiantes.create = async (estudiantes, result) => {
         
             }
         }
-    );
-}
-
-module.exports = Estudiantes;
-;
+        )};
+        
+        Estudiantes.getById = (id, result) => {
+            const sql = 'SELECT * FROM Estudiantes WHERE ID_Estudiante = ?';
+            db.query(sql, [id], (err, res) => {
+                if (err) {
+                    console.log('Error al buscar el estudiante: ', err);
+                    result(err, null);
+                    return;
+                }
+                if (res.length) {
+                    console.log('Estudiante encontrado: ', res[0]);
+                    result(null, res[0]);
+                    return;
+                }
+                // Si no se encuentra ningún estudiante con ese ID
+                result({ message: 'Estudiante no encontrado' }, null);
+            });
+        };
+        
+        module.exports = Estudiantes;

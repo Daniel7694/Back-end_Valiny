@@ -1,9 +1,8 @@
 const Estudiantes = require('../models/Estudiantes');
 
-
 module.exports = {
     register(req, res) {
-        const estudiantes = req.body; // CAPTURO LOS DATOS QUE ME ENVIE EL CLIENTE
+        const estudiantes = req.body;
         Estudiantes.create(estudiantes, (err, data) => {
             if (err) {
                 return res.status(501).json({
@@ -14,12 +13,33 @@ module.exports = {
             }
             return res.status(201).json({
                 success: true,
-                message: 'El registro se realizo correctamente',
-                data: data // EL ID DEL NUEVO USUARIO QUE SE REGISTRO
+                message: 'El registro se realizó correctamente',
+                data: data
             });
-
         });
+    },
 
+    getById(req, res) {
+        const estudianteId = req.params.id; // Obtener el ID del parámetro de la URL
+        Estudiantes.getById(estudianteId, (err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Hubo un error al buscar el estudiante',
+                    error: err
+                });
+            }
+            if (!data) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'No se encontró ningún estudiante con ese ID'
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                message: 'Estudiante encontrado',
+                data: data
+            });
+        });
     }
-
 }
