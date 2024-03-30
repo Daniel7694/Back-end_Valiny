@@ -41,5 +41,25 @@ module.exports = {
                 data: data
             });
         });
+    },
+    update(req, res) {
+        const estudianteId = req.params.id; // Obtener el ID del estudiante a actualizar
+        const newData = req.body; // Obtener los nuevos datos del estudiante desde el cuerpo de la solicitud
+
+        Estudiantes.update(estudianteId, newData, (err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Hubo un error al actualizar el estudiante',
+                    error: err
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                message: 'Estudiante actualizado correctamente',
+                data: data
+            });
+        });
     }
+
 }

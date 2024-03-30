@@ -176,7 +176,7 @@ INNER JOIN Genero G ON G.ID_Genero = A.Genero;
 CREATE VIEW Vista_Estu AS
 SELECT 
   E.ID_Estudiante AS 'Documento',
-  CONCAT(E.P_Nombre, ' ', E.S_Nombre, ' ', E.T_Nombre, ' ', E.P_Apellido, ' ', E.S_Apellido) AS 'Nombre completo',
+  CONCAT(E.P_Nombre, ' ', E.S_Nombre, ' ', E.P_Apellido, ' ', E.S_Apellido) AS 'Nombre completo',
   G.Nom_Genero AS 'Genero',
   T.Tipo_Documento AS 'Tipo de documento',
   C.Num_Curso AS 'Curso',

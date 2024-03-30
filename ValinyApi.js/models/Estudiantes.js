@@ -44,7 +44,7 @@ Estudiantes.create = async (estudiantes, result) => {
         )};
         
         Estudiantes.getById = (id, result) => {
-            const sql = 'SELECT * FROM Estudiantes WHERE ID_Estudiante = ?';
+            const sql = 'SELECT * FROM Vista_Estu WHERE Documento = ?'; // Utilizamos la vista Vista_Estu en lugar de la tabla Estudiantes
             db.query(sql, [id], (err, res) => {
                 if (err) {
                     console.log('Error al buscar el estudiante: ', err);
@@ -58,6 +58,24 @@ Estudiantes.create = async (estudiantes, result) => {
                 }
                 // Si no se encuentra ningún estudiante con ese ID
                 result({ message: 'Estudiante no encontrado' }, null);
+            });
+        };
+        
+        Estudiantes.update = (id, newData, result) => {
+            const sql = 'UPDATE Estudiantes SET ? WHERE ID_Estudiante = ?';
+            db.query(sql, [newData, id], (err, res) => {
+                if (err) {
+                    console.log('Error al actualizar el estudiante: ', err);
+                    result(err, null);
+                    return;
+                }
+                if (res.affectedRows == 0) {
+                    // No se encontró ningún estudiante con ese ID
+                    result({ message: 'No se encontró ningún estudiante con ese ID' }, null);
+                    return;
+                }
+                console.log('Estudiante actualizado correctamente');
+                result(null, newData);
             });
         };
         
