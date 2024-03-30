@@ -60,6 +60,25 @@ module.exports = {
                 data: data
             });
         });
+    },
+
+    delete(req, res) {
+        const estudianteId = req.params.id; // Obtener el ID del estudiante a eliminar
+
+        Estudiantes.delete(estudianteId, (err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Hubo un error al eliminar el estudiante',
+                    error: err
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                message: 'Estudiante eliminado correctamente',
+                data: data
+            });
+        });
     }
 
 }

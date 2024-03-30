@@ -60,7 +60,7 @@ Estudiantes.create = async (estudiantes, result) => {
                 result({ message: 'Estudiante no encontrado' }, null);
             });
         };
-        
+
         Estudiantes.update = (id, newData, result) => {
             const sql = 'UPDATE Estudiantes SET ? WHERE ID_Estudiante = ?';
             db.query(sql, [newData, id], (err, res) => {
@@ -79,4 +79,22 @@ Estudiantes.create = async (estudiantes, result) => {
             });
         };
         
-        module.exports = Estudiantes;
+Estudiantes.delete = (id, result) => {
+    const sql = 'DELETE FROM Estudiantes WHERE ID_Estudiante = ?';
+    db.query(sql, [id], (err, res) => {
+        if (err) {
+            console.log('Error al eliminar el estudiante: ', err);
+            result(err, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // No se encontró ningún estudiante con ese ID
+            result({ message: 'No se encontró ningún estudiante con ese ID' }, null);
+            return;
+        }
+        console.log('Estudiante eliminado correctamente');
+        result(null, res);
+    });
+};
+
+module.exports = Estudiantes;
