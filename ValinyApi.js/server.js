@@ -7,7 +7,7 @@ const cors = require('cors');
 /**
 * Importar rutas
 */
-const users = require('./routes/usersRoutes');
+const estudiantes = require('./routes/EstudiantesRoutes');
 const port = process.env.PORT || 3000; 
 app.use(logger('dev'));
 app.use(express.json());
@@ -18,10 +18,10 @@ app.set('port', port);
 /**
 * LLamando las rutas
 */
-users(app);
+estudiantes(app);
 //direccion ip V4 de la maquina, consultar con ipconfig 
 //mi ip:192.168.1.43
-server.listen(3000, '192.168.1.5' || 'localhost', function() {
+server.listen(3000, '192.168.1.19' || 'localhost', function() {
  console.log('Aplicación de NodeJS ' + process.pid + ' inicio en el puerto ' + port);
 });
 app.get('/', (req, res) => { 
